@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { ToastContainer } from 'react-toastify';
 import BudgetForm from '../BudgetForm/BudgetFormContainer.js';
 import ExpenseForm from '../ExpenseForm/ExpenseFormContainer.js';
 import ExpensesTable from '../ExpensesTable/ExpensesTable';
 import Values from '../Values/Values';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = ({ budget, expenses, removeExpense, totalExpenses, balance }) => (
   <Container>
@@ -14,6 +16,7 @@ const App = ({ budget, expenses, removeExpense, totalExpenses, balance }) => (
     {expenses.length > 0 && (
       <ExpensesTable items={expenses} onRemove={removeExpense} />
     )}
+    <ToastContainer />
   </Container>
 );
 

@@ -4,18 +4,21 @@ import Form from '../shared/Form';
 import Label from '../shared/Label';
 import Input from '../shared/Input';
 import Button from '../shared/Button';
+import checkBudget from '../../utils/checkBudget.js';
 
 const labelStyles = `
-  margin-bottom: 16px;  
+  margin-bottom: 16px;
 `;
 
-const BudgetForm = ({ onSave }) => {
+const BudgetForm = ({ onSave, expenses }) => {
   const handleSubmit = e => {
     e.preventDefault();
-    const currentInput = Number(e.target.querySelector('input').value);
-    onSave(currentInput);
-
-    e.target.reset();
+    const val = e.target.querySelector('input').value;
+    if (checkBudget(val, expenses)) {
+      const currentInput = Number(val);
+      onSave(currentInput);
+      e.target.reset();
+    }
   };
 
   return (

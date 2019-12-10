@@ -5,21 +5,26 @@ import Form from '../shared/Form';
 import Label from '../shared/Label';
 import Input from '../shared/Input';
 import Button from '../shared/Button';
+import checkExpense from '../../utils/checkExpense.js';
 
 const labelStyles = `
-  margin-bottom: 16px;  
+  margin-bottom: 16px;
 `;
 
 const ExpenseForm = ({ balance, onSave }) => {
   const handleSubmit = e => {
     e.preventDefault();
-    const resultInput = {
-      name: e.target.querySelector('input[name="name"]').value,
-      amount: Number(e.target.querySelector('input[name="amount"]').value),
-      id: shortid.generate(),
-    };
-    onSave(resultInput);
-    e.target.reset();
+    const name = e.target.querySelector('input[name="name"]').value;
+    const val = e.target.querySelector('input[name="amount"]').value;
+    if (checkExpense(val, name, balance)) {
+      const resultInput = {
+        name,
+        amount: Number(val),
+        id: shortid.generate(),
+      };
+      onSave(resultInput);
+      e.target.reset();
+    }
   };
 
   return (
